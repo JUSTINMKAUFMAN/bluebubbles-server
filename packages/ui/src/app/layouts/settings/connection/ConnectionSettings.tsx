@@ -31,6 +31,8 @@ import { ZrokReserveTunnelField } from 'app/components/fields/ZrokReserveTunnelF
 import { ZrokReservedNameField } from 'app/components/fields/ZrokReservedNameField';
 import { NgrokSubdomainField } from 'app/components/fields/NgrokSubdomainField';
 import { ZrokDisableField } from 'app/components/fields/ZrokDisableField';
+import { CompanyIdField } from 'app/components/fields/CompanyIdField';
+import { ApiKeyField } from 'app/components/fields/ApiKeyField';
 // import { EncryptCommunicationsField } from '../../../components/fields/EncryptCommunicationsField';
 
 
@@ -88,8 +90,10 @@ export const ConnectionSettings = (): JSX.Element => {
                 </>
             ) : null}
 
-            
             <Spacer />
+            <Divider orientation='horizontal' />
+            <CompanyIdField />
+            <ApiKeyField />
             <Divider orientation='horizontal' />
             <ServerPasswordField />
             <LocalPortField />

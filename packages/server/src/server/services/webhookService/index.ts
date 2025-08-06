@@ -14,6 +14,8 @@ export class WebhookService extends Loggable {
     tag = "WebhookService";
 
     async dispatch(event: WebhookEvent) {
+        const companyId = `${Server().repo.getConfig("companyId") ?? "HEYOH"}`;
+        const apiKey = Server().repo.getConfig("apiKey") as string | null;
         const webhooks = await Server().repo.getWebhooks();
         for (const i of webhooks) {
             const eventTypes = JSON.parse(i.events) as Array<string>;
@@ -21,7 +23,7 @@ export class WebhookService extends Loggable {
             this.log.debug(`Dispatching event to webhook: ${i.url}`);
 
             // We don't need to await this
-            this.sendPost(i.url, event).catch(ex => {
+            this.sendPost(i.url, event, companyId, (apiKey && apiKey.length > 0) ? apiKey : undefined).catch(ex => {
                 this.log.debug(`Failed to dispatch "${event.type}" event to webhook: ${i.url}`);
                 this.log.debug(`  -> Error: ${ex?.message ?? String(ex)}`);
                 this.log.debug(`  -> Status Text: ${ex?.response?.statusText}`);
@@ -29,7 +31,11 @@ export class WebhookService extends Loggable {
         }
     }
 
-    private async sendPost(url: string, event: WebhookEvent) {
-        return await axios.post(url, event, { headers: { "Content-Type": "application/json" } });
+    private async sendPost(url: string, event: WebhookEvent, companyId: string, apiKey?: string) {
+        return await axios.post(url, event, { headers: { 
+            "Content-Type": "application/json",
+            "x-company-id": companyId,
+            "x-api-key": apiKey
+        } });
     }
 }
