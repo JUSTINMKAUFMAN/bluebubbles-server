@@ -5,13 +5,12 @@ import {
     FormHelperText,
     Input,
     IconButton,
-    FormErrorMessage,
-    useBoolean
+    FormErrorMessage
 } from '@chakra-ui/react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { showSuccessToast } from '../../utils/ToastUtils';
 import { setConfig } from '../../slices/ConfigSlice';
-import { AiFillEye, AiFillEyeInvisible, AiOutlineSave } from 'react-icons/ai';
+import { AiOutlineSave } from 'react-icons/ai';
 
 
 export interface CompanyIdFieldProps {
@@ -23,7 +22,6 @@ export const CompanyIdField = ({ helpText, errorOnEmpty = false }: CompanyIdFiel
     const dispatch = useAppDispatch();
 
     const companyId: string = (useAppSelector(state => state.config.companyId) ?? '');
-    const [showCompanyId, setShowCompanyId] = useBoolean();
     const [newCompanyId, setNewCompanyId] = useState(companyId);
     const [companyIdError, setCompanyIdError] = useState('');
     const hasCompanyIdError: boolean = (companyIdError?? '').length > 0;
@@ -46,10 +44,10 @@ export const CompanyIdField = ({ helpText, errorOnEmpty = false }: CompanyIdFiel
     const saveCompanyId = (theNewCompanyId: string): void => {
         // Validate the port
         if (theNewCompanyId.length < 3) {
-            setCompanyIdError('Your companyId must be at least 3 characters!');
+            setCompanyIdError('Your company ID must be at least 3 characters!');
             return;
         } else if (theNewCompanyId === companyId) {
-            setCompanyIdError('You have not changed the companyId since your last save!');
+            setCompanyIdError('You have not changed the company ID since your last save!');
             return;
         }
 
@@ -57,16 +55,16 @@ export const CompanyIdField = ({ helpText, errorOnEmpty = false }: CompanyIdFiel
         if (hasCompanyIdError) setCompanyIdError('');
         showSuccessToast({
             id: 'settings',
-            description: 'Successfully saved new companyId!'
+            description: 'Successfully saved new company ID!'
         });
     };
 
     return (
         <FormControl isInvalid={hasCompanyIdError}>
-            <FormLabel htmlFor='companyId'>Server CompanyId</FormLabel>
+            <FormLabel htmlFor='companyId'>Company ID</FormLabel>
             <Input
                 id='companyId'
-                type={showCompanyId ? 'text' : 'companyId'}
+                type='text'
                 maxWidth="20em"
                 value={newCompanyId}
                 onChange={(e) => {
@@ -77,20 +75,13 @@ export const CompanyIdField = ({ helpText, errorOnEmpty = false }: CompanyIdFiel
             <IconButton
                 ml={3}
                 verticalAlign='top'
-                aria-label='View companyId'
-                icon={showCompanyId ? <AiFillEye /> : <AiFillEyeInvisible />}
-                onClick={() => setShowCompanyId.toggle()}
-            />
-            <IconButton
-                ml={3}
-                verticalAlign='top'
-                aria-label='Save companyId'
+                aria-label='Save company ID'
                 icon={<AiOutlineSave />}
                 onClick={() => saveCompanyId(newCompanyId)}
             />
             {!hasCompanyIdError ? (
                 <FormHelperText>
-                    {helpText ?? 'Enter the companyId that this account belongs to'}
+                    {helpText ?? 'Enter the company ID that this account belongs to'}
                 </FormHelperText>
             ) : (
                 <FormErrorMessage>{companyIdError}</FormErrorMessage>

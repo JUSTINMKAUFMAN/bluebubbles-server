@@ -85,6 +85,18 @@ export class HandleInterface {
         return !!availability?.data.available;
     }
 
+    static async getRCSAvailability(address: string): Promise<boolean> {
+        checkPrivateApiStatus();
+
+        const addr = getiMessageAddressFormat(address);
+        const availability = await Server().privateApi.handle.getRCSAvailability(addr);
+        if (isEmpty(availability?.data)) {
+            throw new Error("Failed to determine RCS availability!");
+        }
+
+        return !!availability?.data.available;
+    }
+
     static async getFacetimeAvailability(address: string): Promise<boolean> {
         checkPrivateApiStatus();
 

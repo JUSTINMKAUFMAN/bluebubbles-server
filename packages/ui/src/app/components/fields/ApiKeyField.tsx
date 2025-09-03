@@ -62,10 +62,10 @@ export const ApiKeyField = ({ helpText, errorOnEmpty = false }: ApiKeyFieldProps
 
     return (
         <FormControl isInvalid={hasApiKeyError}>
-            <FormLabel htmlFor='apiKey'>Server ApiKey</FormLabel>
+            <FormLabel htmlFor='apiKey'>API Key</FormLabel>
             <Input
                 id='apiKey'
-                type={showApiKey ? 'text' : 'apiKey'}
+                type={showApiKey ? 'text' : 'password'}
                 maxWidth="20em"
                 value={newApiKey}
                 onChange={(e) => {

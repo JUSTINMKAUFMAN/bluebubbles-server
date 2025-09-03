@@ -24,6 +24,14 @@ export class PrivateApiHandle extends PrivateApiAction {
         return this.sendApiMessage(action, { aliasType, address }, request);
     }
 
+    async getRCSAvailability(address: string): Promise<TransactionResult> {
+        const action = "check-rcs-availability";
+        this.throwForNoMissingFields(action, [address]);
+        const request = new TransactionPromise(TransactionType.HANDLE);
+        const aliasType = address.includes("@") ? "email" : "phone";
+        return this.sendApiMessage(action, { aliasType, address }, request);
+    }
+
     async getFacetimeAvailability(address: string): Promise<TransactionResult> {
         const action = "check-facetime-availability";
         this.throwForNoMissingFields(action, [address]);

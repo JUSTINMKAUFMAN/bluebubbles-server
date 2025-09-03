@@ -74,6 +74,14 @@ export class HandleRouter {
         return new Success(ctx, { data: { available } }).send();
     }
 
+    static async getRCSAvailability(ctx: RouterContext, _: Next) {
+        const address = ctx.request.query?.address as string;
+
+        // Get the availability from the private api
+        const available = await HandleInterface.getRCSAvailability(address);
+        return new Success(ctx, { data: { available } }).send();
+    }
+
     static async getFacetimeAvailability(ctx: RouterContext, _: Next) {
         const address = ctx.request.query?.address as string;
 

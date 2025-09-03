@@ -894,6 +894,14 @@ class BlueBubblesServer extends EventEmitter {
             });
         }
 
+        // Make sure a company ID is set
+        const companyId = this.repo.getConfig("companyId") as string;
+        if (isEmpty(companyId)) {
+            this.logger.warn("No company ID set! Please go to the configuration page, fill in a company ID, and save the configuration.");
+        } else {
+            this.logger.info(`Company ID: ${companyId}`);
+        }
+
         // Show a warning if the time is off by a reasonable amount (5 seconds)
         try {
             const syncOffset = await FileSystem.getTimeSync();

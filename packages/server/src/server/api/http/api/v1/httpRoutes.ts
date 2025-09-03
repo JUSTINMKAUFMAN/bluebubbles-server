@@ -558,6 +558,13 @@ export class HttpRoutes {
                     },
                     {
                         method: HttpMethod.GET,
+                        path: "availability/rcs",
+                        middleware: [...HttpRoutes.protected, PrivateApiMiddleware],
+                        validators: [HandleValidator.validateAvailability],
+                        controller: HandleRouter.getRCSAvailability
+                    },
+                    {
+                        method: HttpMethod.GET,
                         path: "availability/facetime",
                         validators: [HandleValidator.validateAvailability],
                         controller: HandleRouter.getFacetimeAvailability
