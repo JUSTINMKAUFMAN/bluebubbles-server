@@ -1,0 +1,23 @@
+name: Lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: current
+    - name: Lint
+      run: |
+        npm install
+        npm run lint

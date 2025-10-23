@@ -4,7 +4,8 @@
     "description": "BlueBubbles Server is the app that powers the BlueBubbles app ecosystem",
     "private": true,
     "workspaces": [
-        "packages/*"
+        "packages/*",
+        "packages/native/*"
     ],
     "scripts": {
         "start": "concurrently \"cd ./packages/ui && npm run start\" \"cd ./packages/server && npm run start\"",
