@@ -49,7 +49,8 @@ export abstract class DylibPlugin extends Loggable {
         // We are gonna test for both just in case an app was installed prior to the OS upgrade.
         const possiblePaths = [
             `/System/Applications/${this.parentApp}.app/Contents/MacOS/${this.parentApp}`,
-            `/Applications/${this.parentApp}.app/Contents/MacOS/${this.parentApp}`
+            `/Applications/${this.parentApp}.app/Contents/MacOS/${this.parentApp}`,
+            `${process.env.HOME}/Applications/${this.parentApp}.app/Contents/MacOS/${this.parentApp}`
         ];
 
         // Return the first path that exists

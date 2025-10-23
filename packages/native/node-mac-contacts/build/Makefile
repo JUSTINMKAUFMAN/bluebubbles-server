@@ -337,7 +337,7 @@ endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
 cmd_regen_makefile = cd $(srcdir); /Users/administrator/Documents/bluebubbles-server/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/Users/administrator/.electron-gyp/25.9.8" "-Dnode_gyp_dir=/Users/administrator/Documents/bluebubbles-server/node_modules/node-gyp" "-Dnode_lib_file=/Users/administrator/.electron-gyp/25.9.8/<(target_arch)/node.lib" "-Dmodule_root_dir=/Users/administrator/Documents/bluebubbles-server/packages/native/node-mac-contacts" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/Users/administrator/Documents/bluebubbles-server/packages/native/node-mac-contacts/build/config.gypi -I/Users/administrator/Documents/bluebubbles-server/node_modules/node-gyp/addon.gypi -I/Users/administrator/.electron-gyp/25.9.8/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/../../../node_modules/node-gyp/addon.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../.electron-gyp/25.9.8/include/node/common.gypi $(srcdir)/node_modules/node-addon-api/node_api.gyp $(srcdir)/build/config.gypi
+Makefile: $(srcdir)/node_modules/node-addon-api/node_api.gyp $(srcdir)/../../../node_modules/node-gyp/addon.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../.electron-gyp/25.9.8/include/node/common.gypi $(srcdir)/build/config.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included
