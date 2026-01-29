@@ -746,8 +746,14 @@ export class FileSystem {
     </dict>
 </plist>`;
 
+        // As of macOS Tahoe, the directory ~/Library/LaunchAgents does not exist unless otherwise created
+        const launchAgentsPath = path.join(userHomeDir(), "Library", "LaunchAgents");
+        if (!fs.existsSync(launchAgentsPath)) {
+            fs.mkdirSync(launchAgentsPath);
+        }
+
         const plistName = "com.bluebubbles.server";
-        const filePath = path.join(userHomeDir(), "Library", "LaunchAgents", `${plistName}.plist`);
+        const filePath = path.join(launchAgentsPath, `${plistName}.plist`);
         if (!fs.existsSync(filePath)) {
             fs.writeFileSync(filePath, plist);
         }
